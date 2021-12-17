@@ -1,0 +1,24 @@
+.id {
+    position: absolute;
+    left: 20%;
+    top:10%;
+}
+.name {
+    position: absolute;
+    right: 20%;
+    top:10%;
+}
+.age {
+    position: absolute;
+    left: 20%;
+    top: 15%;
+}
+.email{
+    position: absolute;
+    right: 20%;
+    top:15%;
+}
+.submit{
+    position:absolute;
+    top:20%;
+}
