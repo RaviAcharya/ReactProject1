@@ -16,13 +16,14 @@ class EmployeePost extends Component{
                 dateOfJoining : ''
            },
            employees :[],
-           deleteEmployeeId:''
        }
+       this.updateEmployeeHandler.bind(this);
     }
 
     employeeIdHandler=(event)=>{
         let temp = this.state.employee;
         temp.employeeId = event.target.value;
+        console.log("employeeId",temp.employeeId);
         this.setState({employee : temp})
     }
 
@@ -44,7 +45,7 @@ class EmployeePost extends Component{
         this.setState({employee : temp})
     }
 
-    employeeDateOfBirthHandler=(event)=>{
+    employeeDateOfJoiningHandler=(event)=>{
         let temp = this.state.employee;
         temp.dateOfJoining = event.target.value;
         this.setState({employee : temp})
@@ -62,7 +63,7 @@ class EmployeePost extends Component{
     }
     submitHandler= async(event)=>{
         event.preventDefault();
-        console.log(this.state.employee);
+        console.log("object",this.state.employee);
         if(this.state.employee.employeeId==='')
         {
             /*let temId = this.state.employee;
@@ -83,30 +84,22 @@ getAllEmployees(){
             axios.get("http://localhost:8080/allemployees").then((response)=>{
             temp = response.data;
             this.setState({employees : temp})
-            console.log("employee",this.state.employees);
             })
 }
 
-updateEmployeeHandler=async(event)=>{
-    event.preventDefault()
-    await axios.put(`http://localhost:8080/updateemployee/id/${this.state.employee.employeeId}`, this.state.employee)
-  .catch(function (error) {
-    if (error.response) {
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-      alert("This employee does not exist");
-    }
-    else
-    {
-        this.componentDidUpdate()
-    }
-  });
-   
+ updateEmployeeHandler=(emp)=>{
+    let temp=this.state.employee;
+    temp.employeeId=emp.employeeId;
+    temp.name=emp.name;
+    temp.age=emp.age;
+    temp.emailId=emp.emailId;
+    temp.dateOfJoining=emp.dateOfJoining;
+    this.setState({employee:temp})
 }
-deleteEmployee=async(event)=>{
+deleteEmployee= async (event)=>{
     event.preventDefault();
-    await axios.delete(`http://localhost:8080/deleteemployee/id/${this.state.deleteEmployeeId}`)
+   console.log("empid",event.target.value);
+    await axios.delete(`http://localhost:8080/deleteemployee/id/${event.target.value}`)
     .catch(function (error){
         if(error.response){
       console.log(error.response.data);
@@ -122,44 +115,41 @@ deleteEmployee=async(event)=>{
 
 }
     render(){
-        console.log("hello",this.state.employees)
         return(
-            <div>
+            <div className="employee">
                 
                 <form onSubmit={this.submitHandler} >
                       
-                    <div className="id">
+                    <div className="form1">
                         <label>Employee Id : </label>
                        <input type="text"  value={this.state.employee.employeeId} onChange={this.employeeIdHandler}/>
                     </div>
-                    <div className="name">
+                    <div className="form2">
                         <label>Employee Name : </label>
                        <input type="text"  value={this.state.employee.name} onChange={this.employeeNameHandler}/>
                     </div>
-                    <div className="age">
+                    <div className="form3">
                         <label>Employee Age : </label>
                        <input type="number" value={this.state.employee.age} onChange={this.employeeAgeHandler}/>
                     </div>
-                    <div>
-                        <label className="email">Employee EmailId : </label>
+                    <div className="form4">
+                        <label>Employee EmailId : </label>
                        <input type="text" value={this.state.employee.emailId} onChange={this.employeeEmailIdHandler}/>
                     </div>
-                    <div>
+                    <div className="form5">
                         <label>Date Of Joining : </label>
-                       <input type="date" value={this.state.employee.dateofJoining} onChange={this.employeeDateOfBirthHandler}/>
+                       <input type="date" value={this.state.employee.dateofJoining} onChange={this.employeeDateOfJoiningHandler}/>
                     </div>
                     <div>
-                       <button type="submit">Submit</button>
-                       <button type="submit" onClick={this.updateEmployeeHandler}>Update</button>
+                       <button className="submit" type="submit">Submit</button>
                     </div>
                 </form>
-                <div>
+               {/* <div>
                      <label>Enter employee Id to be deleted</label>
                 <input type="text" value={this.state.deleteEmployeeId} onChange={this.employeeDeletehandler}></input>
-                <button  type="submit" onClick={this.deleteEmployee}>Delete</button>
-                </div>
-                <EmployeeList emp={this.state.employees}/>
-
+                <button  type="submit" onClick={this.deleteEmployee}>Delete</button>}
+               </div>*/}
+                <EmployeeList emps={this.state.employees} deleteEmployee={this.deleteEmployee} updateEmployeeHandler = {this.updateEmployeeHandler}  />
             </div>
         )
     }
