@@ -1,0 +1,58 @@
+
+.App {
+  text-align: center;
+}
+table,th,td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  border-spacing: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th,td{
+  padding: 10px;
+}
+
+.form1 {
+  position: absolute;
+  right: 60%;
+  top: 5%;
+}
+
+.form2 {
+  position: absolute;
+  right: 20%;
+  top :5%;
+}
+.form3 {
+  position: absolute;
+  right: 60%;
+  top : 10%;
+}
+
+.form4 {
+  position: absolute;
+  right: 20%;
+  top: 10%;
+}
+
+.form5 {
+  position: absolute;
+  right : 60%;
+  top : 15%;
+}
+
+.submit {
+  position: absolute;
+  left: 48%;
+  
+  top:17%;
+}
+
